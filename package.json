@@ -1,0 +1,16 @@
+{
+  "name": "did-not-read-yet",
+  "version": "0.1.0",
+  "description": "Share interesting links with your friends",
+  "license": "MIT",
+  "repository": "https://github.com/lightningboss/did-not-read-yet",
+  "dependencies": {},
+  "scripts": {
+    "start": "concurrently -n S,C npm:start:server npm:start:client",
+    "start:server": "cd ./server && npm start",
+    "start:client": "cd ./client && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
