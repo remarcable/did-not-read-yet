@@ -1,5 +1,5 @@
-const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
+import express from 'express';
+import { ApolloServer, gql } from 'apollo-server-express';
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
