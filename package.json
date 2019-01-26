@@ -16,11 +16,5 @@
     "devDependencies": {
         "concurrently": "^4.1.0",
         "prettier": "^1.15.3"
-    },
-    "prettier": {
-        "tabWidth": 2,
-        "semi": true,
-        "singleQuote": true,
-        "trailingComma": "all"
     }
 }
