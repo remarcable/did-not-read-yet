@@ -2,7 +2,8 @@
   "name": "server",
   "scripts": {
     "start": "nodemon src/index.js",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "test": "jest --watch"
   },
   "dependencies": {
     "apollo-server-express": "^2.3.1",
@@ -16,6 +17,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-jasmine": "^2.10.1",
     "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.0.0",
     "nodemon": "^1.18.9",
