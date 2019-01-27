@@ -5,6 +5,7 @@ import DisplayLink from './components/DisplayLink';
 
 class App extends PureComponent {
   state = {
+    idCounter: 4,
     links: [
       {
         id: 1,
@@ -28,6 +29,19 @@ class App extends PureComponent {
         read: false,
       },
     ],
+  };
+  addNewLink = (title, url) => {
+    let linksCopy = [...this.state.links];
+    linksCopy.push({
+      id: this.state.idCounter,
+      title: title,
+      url: url,
+      dismissed: false,
+      read: false,
+    });
+    this.setState(state => {
+      return { links: linksCopy, idCounter: state.idCounter + 1 };
+    });
   };
 
   updateSingleLink = (id, updatedFields) => {
@@ -64,6 +78,9 @@ class App extends PureComponent {
 
     return (
       <div>
+        <button onClick={() => this.addNewLink('Google', 'www.google.com')}>
+          Add new link to Google
+        </button>
         <h1>Did not read yet</h1>
         <h2>New Links</h2>
         {links.filter(link => !link.read && !link.dismissed).map(displayLink)}
