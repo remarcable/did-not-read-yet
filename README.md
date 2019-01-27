@@ -8,6 +8,8 @@ Share interesting links with your friends
 $ git clone https://github.com/lightningboss/did-not-read-yet.git
 $ cd did-not-read-yet
 $ npm i
+$ cp server/config.sample.json server/config.dev.json # fill with own values
+$ cp server/config.sample.json server/config.prod.json # fill with own values
 $ npm start
 ```
 
