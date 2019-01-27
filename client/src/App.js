@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { modifyElement } from './lib/modifyElement';
 
 import DisplayLink from './components/DisplayLink';
+import AddLinkForm from './components/AddLinkFormComponent';
 
 class App extends PureComponent {
   state = {
@@ -30,7 +31,7 @@ class App extends PureComponent {
       },
     ],
   };
-  addNewLink = (title, url) => {
+  addLink = (title, url) => {
     let linksCopy = [...this.state.links];
     linksCopy.push({
       id: this.state.idCounter,
@@ -78,10 +79,8 @@ class App extends PureComponent {
 
     return (
       <div>
-        <button onClick={() => this.addNewLink('Google', 'www.google.com')}>
-          Add new link to Google
-        </button>
         <h1>Did not read yet</h1>
+        <AddLinkForm addLink={this.addLink} />
         <h2>New Links</h2>
         {links.filter(link => !link.read && !link.dismissed).map(displayLink)}
         <h2>Read Links</h2>
