@@ -1,7 +1,9 @@
 {
   "name": "server",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "concurrently -r --handle-input npm:start:node npm:start:mongo",
+    "start:node": "nodemon src/index.js",
+    "start:mongo": "mongod --dbpath=data --bind_ip 127.0.0.1 --logpath .mongo-log.txt --logappend",
     "lint": "eslint ./src",
     "test": "jest --watch"
   },

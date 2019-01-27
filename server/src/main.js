@@ -4,6 +4,7 @@ import { ApolloServer, gql } from 'apollo-server';
 const typeDefs = gql`
     type Query {
         hello: String
+        currentUser: String
     }
 `;
 
@@ -11,6 +12,7 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         hello: () => 'Hello world!',
+        currentUser: (parent, args, { user }) => user._id,
     },
 };
 
@@ -22,7 +24,9 @@ const server = new ApolloServer({
         const token = req.headers.authorization || '';
 
         // try to retrieve a user with the token
-        const user = {};
+        const user = {
+            _id: 'marc' + Math.random(),
+        };
 
         // add the user to the context
         return { user };
