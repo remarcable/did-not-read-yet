@@ -1,6 +1,12 @@
 import React from 'react';
 
-const DisplayLink = ({ link, markAsRead, dismissLink, undismissLink }) => {
+const DisplayLink = ({
+  link,
+  markAsRead,
+  dismissLink,
+  undismissLink,
+  deleteLink,
+}) => {
   const { id, title, url, dismissed } = link;
 
   return (
@@ -18,6 +24,7 @@ const DisplayLink = ({ link, markAsRead, dismissLink, undismissLink }) => {
       ) : (
         <button onClick={() => dismissLink(id)}>Dismiss</button>
       )}
+      <button onClick={() => deleteLink(id)}>Delete Link</button>
     </div>
   );
 };

@@ -44,7 +44,12 @@ class App extends PureComponent {
       return { links: linksCopy, idCounter: state.idCounter + 1 };
     });
   };
-
+  deleteLink = id => {
+    let linksCopy = [...this.state.links];
+    linksCopy = linksCopy.filter(element => id !== element.id);
+    console.log(linksCopy);
+    this.setState({ links: linksCopy });
+  };
   updateSingleLink = (id, updatedFields) => {
     this.setState(({ links }) => {
       return {
@@ -74,6 +79,7 @@ class App extends PureComponent {
         markAsRead={this.markAsRead}
         dismissLink={this.dismissLink}
         undismissLink={this.undismissLink}
+        deleteLink={this.deleteLink}
       />
     );
 
