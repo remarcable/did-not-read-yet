@@ -1,5 +1,4 @@
-import express from 'express';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer, gql } from 'apollo-server';
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
@@ -15,13 +14,21 @@ const resolvers = {
     },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => {
+        // get the user token from the headers
+        const token = req.headers.authorization || '';
 
-const app = express();
-server.applyMiddleware({ app });
+        // try to retrieve a user with the token
+        const user = {};
 
-const port = 4000;
+        // add the user to the context
+        return { user };
+    },
+});
 
-app.listen({ port }, () =>
-    console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
-);
+server.listen().then(({ url }) => {
+    console.log(`🚀 Server ready at ${url}`);
+});
