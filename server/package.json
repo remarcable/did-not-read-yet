@@ -3,7 +3,7 @@
   "scripts": {
     "start": "concurrently -r --handle-input npm:start:node npm:start:mongo",
     "start:node": "export NODE_ENV=development && nodemon src/index.js",
-    "start:mongo": "mongod --dbpath=data --bind_ip 127.0.0.1 --logpath .mongo-log.txt --logappend",
+    "start:mongo": "rm .mongo-log.txt; mongod --dbpath=data --bind_ip 127.0.0.1 --logpath .mongo-log.txt --logappend",
     "lint": "eslint ./src",
     "test": "jest --watch"
   },
