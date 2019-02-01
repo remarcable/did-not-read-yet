@@ -10,7 +10,7 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         hello: () => 'Hello world!',
-        currentUser: (parent, args, { user }) => user.id,
+        currentUser: (parent, args, { user }) => user._id,
     },
 };
 
@@ -18,6 +18,6 @@ export default new ApolloServer({
     typeDefs,
     resolvers,
     context: ({ req }) => {
-        return { user: req.user };
+        return { user: req.user, mongo: req.mongo };
     },
 });

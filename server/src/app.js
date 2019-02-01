@@ -4,13 +4,18 @@ import bodyparser from 'body-parser';
 
 import { getBearerStrategy } from './auth/getBearerStrategy';
 
-export default function getExpressApp() {
+export default function getExpressApp(mongo) {
     const app = express();
 
     app.use(bodyparser.json());
     app.use(passport.initialize());
 
-    passport.use('bearer', getBearerStrategy());
+    app.use((req, res, next) => {
+        req.mongo = mongo;
+        next();
+    });
+
+    passport.use('bearer', getBearerStrategy(mongo));
 
     app.post('/graphql', passport.authenticate('bearer', { session: false }));
 

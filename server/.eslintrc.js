@@ -9,6 +9,8 @@ module.exports = {
     plugins: ['import', 'prettier'],
     rules: {
         'prettier/prettier': 'warn',
+        'import/prefer-default-export': 0,
+        'no-underscore-dangle': ['error', { allow: ['_id'] }],
     },
     settings: {
         'import/resolver': {

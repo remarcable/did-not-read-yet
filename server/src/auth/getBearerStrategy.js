@@ -1,17 +1,11 @@
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
 
-const defaultUser = { id: 123, username: 'marc', info: '12!' };
-const defaultUser2 = { id: 125, username: 'rico', info: '16!' };
+export function getBearerStrategy(mongo) {
+    return new BearerStrategy(async (token, done) => {
+        const user = await mongo.collection('users').findOne({ tokens: token });
 
-// eslint-disable-next-line
-export function getBearerStrategy() {
-    return new BearerStrategy((token, done) => {
-        if (token === 'marc') {
-            return done(null, defaultUser);
-        }
-
-        if (token === 'rico') {
-            return done(null, defaultUser2);
+        if (user) {
+            return done(null, user);
         }
 
         return done(null, false);
