@@ -1,38 +1,10 @@
-import { ApolloServer, gql } from 'apollo-server';
+import getExpressApp from './app';
+import apolloServer from './graph';
 
-// Construct a schema, using GraphQL schema language
-const typeDefs = gql`
-    type Query {
-        hello: String
-        currentUser: String
-    }
-`;
+const app = getExpressApp();
+apolloServer.applyMiddleware({ app });
 
-// Provide resolver functions for your schema fields
-const resolvers = {
-    Query: {
-        hello: () => 'Hello world!',
-        currentUser: (parent, args, { user }) => user._id,
-    },
-};
-
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({ req }) => {
-        // get the user token from the headers
-        const token = req.headers.authorization || '';
-
-        // try to retrieve a user with the token
-        const user = {
-            _id: 'marc' + Math.random(),
-        };
-
-        // add the user to the context
-        return { user };
-    },
-});
-
-server.listen().then(({ url }) => {
-    console.log(`🚀 Server ready at ${url}`);
+app.listen({ port: 4000 }, () => {
+    // eslint-disable-next-line no-console
+    console.log(`🚀 Server ready at http://localhost:4000${apolloServer.graphqlPath}`);
 });
