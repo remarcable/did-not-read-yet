@@ -17,7 +17,7 @@ type Feed {
 
 type User {
     _id: ID!
-    username: String!
+    name: String!
     createdAt: Date!
 
     submittedLinks(limit: Int, offset: Int): [Link!]!
@@ -33,15 +33,15 @@ type Link {
     url: URL!
     postedBy: User!
 
-    read: Boolean!
-    dismissed: Boolean!
-    favorite: Boolean!
+    isRead: Boolean!
+    isArchived: Boolean!
+    isFavorite: Boolean!
 }
 
 input FilterInput {
-    read: Boolean
-    dismissed: Boolean
-    favorite: Boolean
+    isRead: Boolean
+    isArchived: Boolean
+    isFavorite: Boolean
 }
 ```
 
