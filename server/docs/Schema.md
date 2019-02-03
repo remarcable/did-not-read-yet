@@ -4,37 +4,44 @@
 
 ```gql
 {
-    currentUser: User
-    user(userId: ID!): User
+    feed(filterBy: FilterInput, limit: Int, offset: Int): Feed!
+    user(userId: ID!): User!
+}
+```
 
-    type User {
-        _id
-        username
+```gql
+type Feed {
+    user: User! # currentUser
+    links: [Link!]!
+}
 
-        links(filterBy: FilterInput, limit: Int, offset: Int): [Link!]!
+type User {
+    _id: ID!
+    username: String!
+    createdAt: Date!
 
-        followers: [User!]!
-        following: [User!]!
-    }
+    submittedLinks(limit: Int, offset: Int): [Link!]!
 
-    type FilterInput {
-        read: Boolean
-        dismissed: Boolean
-        favorite: Boolean
-    }
+    followers: [User!]!
+    following: [User!]!
+}
 
-    type Link {
-        _id: ID!
-        title: String!
-        createdAt: Date!
-        url: URL!
-        # description
-        postedBy: User!
+type Link {
+    _id: ID!
+    title: String!
+    createdAt: DateTime!
+    url: URL!
+    postedBy: User!
 
-        read: Boolean!
-        dismissed: Boolean!
-        favorite: Boolean!
-    }
+    read: Boolean!
+    dismissed: Boolean!
+    favorite: Boolean!
+}
+
+input FilterInput {
+    read: Boolean
+    dismissed: Boolean
+    favorite: Boolean
 }
 ```
 
@@ -42,18 +49,20 @@
 
 ```gql
 {
-    addLink(link: LinkInput!): Link
-    updateLink(linkId: ID!, input: LinkInput!): Link # only possible in a small timeframe
-    removeLink(linkId: ID!): ?
+    addLink(link: LinkInput!): User! # currentUser with updated submissions
+    updateLink(linkId: ID!, input: LinkInput!): Link! # only possible in a small timeframe
+    removeLink(linkId: ID!): User! # currentUser with updated submissions
 
-    markLink(linkId: ID!, markAs: FilterInput!): Link
+    markLink(linkId: ID!, markAs: FilterInput!): Link!
 
-    followUser(userId): User
-    unfollowUser(userId): User
+    followUser(userId: ID!): Feed! # update user.following and links in feed
+    unfollowUser(userId: ID!): Feed! # update user.following and links in feed
+}
+```
 
-    type LinkInput {
-        title: String!
-        url: URL!
-    }
+```gql
+input LinkInput {
+    title: String!
+    url: URL!
 }
 ```
