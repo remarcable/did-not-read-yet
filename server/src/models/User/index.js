@@ -1,4 +1,7 @@
-import * as API from './api';
+import { curryMethods } from '@root/helpers/curryMethods';
+import * as apiMethods from './apiMethods';
+
+export const methods = ({ _id, mongo }) => curryMethods(apiMethods, { _id, mongo });
 
 export async function get(_id, { fields = {}, mongo }) {
     if (_id === null) {
@@ -14,19 +17,16 @@ export async function get(_id, { fields = {}, mongo }) {
 
     const userWithMethods = {
         ...user,
-        getFollowerIds: () => API.getFollowerIds({ _id, mongo }),
-        getFollowingIds: () => API.getFollowingIds({ _id, mongo }),
-        getSubmittedLinks: ({ limit, offset }) =>
-            API.getSubmittedLinks({ _id, limit, offset, mongo }),
-        getFeed: () => API.getFeed({ _id, mongo }),
-        follow: ({ userId }) => API.follow({ _id, userToFollow: userId, mongo }),
-        unfollow: ({ userId }) => API.follow({ _id, userToFollow: userId, mongo }),
-        addLink: ({ link }) => API.addLink({ _id, link, mongo }),
-        updateLink: ({ linkId, updatedFields }) =>
-            API.updateLink({ _id, linkId, updatedFields, mongo }),
-        removeLink: ({ linkId }) => API.removeLink({ _id, linkId, mongo }),
-        markLink: ({ linkId, markAs }) => API.removeLink({ _id, linkId, markAs, mongo }),
+        ...methods({ _id, mongo }),
     };
 
     return userWithMethods;
+}
+
+export function getMany({ userIds, fields = {}, mongo }) {
+    return mongo
+        .collection('users')
+        .find({ _id: { $in: userIds } })
+        .project(fields)
+        .next();
 }
