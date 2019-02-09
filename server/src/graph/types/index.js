@@ -3,6 +3,8 @@ import merge from 'lodash.merge';
 
 import { dateResolvers } from './Date';
 import { absoluteURLResolver } from './AbsoluteURL';
+import { userResolver } from './User';
+import { linkResolver } from './Link';
 
 const scalars = gql`
     scalar DateTime
@@ -52,4 +54,4 @@ const types = gql`
 `;
 
 export const typeDefs = concatenateTypeDefs([scalars, types]);
-export const typeResolvers = merge(dateResolvers, absoluteURLResolver);
+export const typeResolvers = merge(dateResolvers, absoluteURLResolver, userResolver, linkResolver);

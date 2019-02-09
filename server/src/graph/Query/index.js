@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
-function getLinksForUser() {}
+function getLinksForUser() {
+    return [];
+}
 
 export const queryDefs = gql`
     type Query {
