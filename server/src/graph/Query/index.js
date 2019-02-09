@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+import * as User from '@root/models/User';
 
 function getLinksForUser() {
     return [];
@@ -12,7 +13,8 @@ export const queryDefs = gql`
 `;
 
 const resolvers = {
-    feed(parent, args, { user }) {
+    async feed(parent, args, { userId, mongo }) {
+        const user = await User.get(userId, { mongo });
         return {
             links: getLinksForUser(user),
             user,
