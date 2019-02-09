@@ -7,9 +7,12 @@ export default async function getMongoConnection() {
     if (!mongo) {
         const { mongoUrl } = config;
 
-        const connection = await MongoClient.connect(mongoUrl, {
-            useNewUrlParser: true,
-        });
+        const connection = await MongoClient.connect(
+            mongoUrl,
+            {
+                useNewUrlParser: true,
+            }
+        );
 
         mongo = connection.db('dnry');
     }

@@ -1,22 +1,17 @@
-import { ApolloServer, gql } from 'apollo-server-express';
-
-const typeDefs = gql`
-    type Query {
-        hello: String
-        currentUser: String
-    }
-`;
+import { ApolloServer, concatenateTypeDefs } from 'apollo-server-express';
+import merge from 'lodash.merge';
+import { typeDefs, typeResolvers } from './types';
+import Query, { queryDefs } from './Query';
+import Mutation, { mutationDefs } from './Mutation';
 
 const resolvers = {
-    Query: {
-        hello: () => 'Hello world!',
-        currentUser: (parent, args, { user }) => user._id,
-    },
+    Query,
+    Mutation,
 };
 
 export default new ApolloServer({
-    typeDefs,
-    resolvers,
+    typeDefs: concatenateTypeDefs([queryDefs, mutationDefs, typeDefs]),
+    resolvers: merge(resolvers, typeResolvers),
     context: ({ req }) => {
         return { user: req.user, mongo: req.mongo };
     },
