@@ -1,4 +1,4 @@
-# Schema for did-not-read-yet
+# GraphQL-Schema for did-not-read-yet
 
 ## Query
 
