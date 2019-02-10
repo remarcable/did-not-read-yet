@@ -10,6 +10,10 @@ module.exports = {
     rules: {
         'prettier/prettier': 'warn',
         'import/prefer-default-export': 0,
+        'import/no-extraneous-dependencies': [
+            'error',
+            { devDependencies: ['**/*.test.js', '__mongo_test__/*.js'] },
+        ],
         'no-underscore-dangle': ['error', { allow: ['_id'] }],
     },
     settings: {
