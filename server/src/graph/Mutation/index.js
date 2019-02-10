@@ -14,8 +14,8 @@ export const mutationDefs = gql`
 `;
 
 const resolvers = {
-    addLink(parent, args, { user }) {
-        return user;
+    addLink(parent, args, { getCurrentUser }) {
+        return getCurrentUser();
     },
 };
 
