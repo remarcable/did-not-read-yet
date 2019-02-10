@@ -16,9 +16,10 @@ export default function getExpressApp(mongo) {
 
     app.use((req, res, next) => {
         const { user = {} } = req;
+        const userId = user._id || null;
 
         req.mongo = mongo;
-        req.userId = user._id || null;
+        req.userId = userId;
         next();
     });
 

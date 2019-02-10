@@ -8,12 +8,15 @@ export async function get(_id, { fields = {}, mongo }) {
         return null;
     }
 
-    const user = await mongo
-        .collection('users')
-        .find({ _id })
-        .project(fields)
-        .limit(1)
-        .next();
+    const user =
+        fields !== null
+            ? await mongo
+                  .collection('users')
+                  .find({ _id })
+                  .project(fields)
+                  .limit(1)
+                  .next()
+            : { _id };
 
     const userWithMethods = {
         ...user,

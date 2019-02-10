@@ -1,13 +1,16 @@
 export const userResolver = {
     User: {
-        submittedLinks: (user, { limit, offset }) => {
+        submittedLinks: async ({ _id }, { limit, offset }, { getUser }) => {
+            const user = await getUser(_id, { fields: null });
             return user.getSubmittedLinks({ limit, offset });
         },
-        followers: user => {
-            return user.getFollowers();
+        followers: async ({ _id }, args, { getUser }) => {
+            const user = await getUser(_id, { fields: null });
+            return user.getFollowerIds();
         },
-        following: user => {
-            return user.getFollowing();
+        following: async ({ _id }, args, { getUser }) => {
+            const user = await getUser(_id, { fields: null });
+            return user.getFollowingIds();
         },
     },
 };
