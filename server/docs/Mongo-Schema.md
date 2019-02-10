@@ -3,8 +3,9 @@
 ## Collections
 
 -   users
+-   followers
 -   links
--   ..?
+-   users-link // better name!
 
 ## `users`
 
@@ -14,5 +15,40 @@
     createdAt: Date,
     name: String,
     tokens: [String],
+}
+```
+
+## `followers`
+
+```js
+{
+    _id: String,
+    userId: String,
+    userToFollow: String,
+}
+```
+
+## `links`
+
+```js
+{
+    _id: String,
+    title: String,
+    createdAt: Date,
+    url: String,
+    postedBy: String,
+}
+```
+
+## `users-link`
+
+```js
+{
+    _id: String,
+    userId: String,
+    linkId: String,
+    isRead: Boolean,
+    isArchived: Boolean,
+    isFavorite: Boolean,
 }
 ```
