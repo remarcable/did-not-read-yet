@@ -2,14 +2,14 @@ import { gql, concatenateTypeDefs } from 'apollo-server-express';
 import merge from 'lodash.merge';
 
 import { dateResolvers } from './Date';
-import { absoluteURLResolver } from './AbsoluteURL';
+import { absoluteUrlResolver } from './AbsoluteUrl';
 import { userResolver } from './User';
 import { linkResolver } from './Link';
 
 const scalars = gql`
     scalar DateTime
     scalar Date
-    scalar AbsoluteURL
+    scalar AbsoluteUrl
 `;
 
 const types = gql`
@@ -33,7 +33,7 @@ const types = gql`
         _id: ID!
         title: String!
         createdAt: DateTime!
-        url: AbsoluteURL!
+        url: AbsoluteUrl!
         postedBy: User!
 
         isRead: Boolean!
@@ -43,7 +43,7 @@ const types = gql`
 
     input LinkInput {
         title: String!
-        url: AbsoluteURL!
+        url: AbsoluteUrl!
     }
 
     input FilterInput {
@@ -54,4 +54,4 @@ const types = gql`
 `;
 
 export const typeDefs = concatenateTypeDefs([scalars, types]);
-export const typeResolvers = merge(dateResolvers, absoluteURLResolver, userResolver, linkResolver);
+export const typeResolvers = merge(dateResolvers, absoluteUrlResolver, userResolver, linkResolver);

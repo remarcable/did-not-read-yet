@@ -1,5 +1,5 @@
 import { GraphQLAbsoluteUrl } from 'graphql-url';
 
-export const absoluteURLResolver = {
-    AbsoluteURL: GraphQLAbsoluteUrl,
+export const absoluteUrlResolver = {
+    AbsoluteUrl: GraphQLAbsoluteUrl,
 };
