@@ -3,7 +3,7 @@ export const getFollowingIds = ({ _id, mongo }) => async () => {};
 
 export const getSubmittedLinks = ({ _id, mongo }) => async ({ limit, offset }) => {};
 
-export const getFeed = ({ _id, mongo }) => async () => {};
+export const getLinksForFeed = ({ _id, mongo }) => async () => {};
 
 export const follow = ({ _id, mongo }) => async ({ userId }) => {};
 export const unfollow = ({ _id, mongo }) => async ({ userId }) => {};
