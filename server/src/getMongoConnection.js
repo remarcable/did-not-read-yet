@@ -5,7 +5,7 @@ let mongo;
 
 export default async function getMongoConnection() {
     if (!mongo) {
-        const { mongoUrl } = config;
+        const mongoUrl = process.env.MONGO_URL || config.mongoUrl;
 
         const connection = await MongoClient.connect(
             mongoUrl,
