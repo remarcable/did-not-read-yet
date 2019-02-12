@@ -9,6 +9,7 @@ module.exports = {
     plugins: ['import', 'prettier'],
     rules: {
         'prettier/prettier': 'warn',
+        'no-use-before-define': 0,
         'import/prefer-default-export': 0,
         'import/no-extraneous-dependencies': [
             'error',

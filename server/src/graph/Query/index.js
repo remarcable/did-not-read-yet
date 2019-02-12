@@ -1,5 +1,8 @@
 import { gql } from 'apollo-server-express';
-import * as User from '@root/models/User';
+
+async function getFeed({ userId, filterBy, limit, offset }) {
+    return [];
+}
 
 export const queryDefs = gql`
     type Query {
@@ -9,12 +12,14 @@ export const queryDefs = gql`
 `;
 
 const resolvers = {
-    async feed(parent, args, { userId, mongo }) {
-        const user = await User.get(userId, { mongo });
+    async feed(parent, { filterBy, limit, offset }, { currentUser }) {
         return {
-            links: await user.getLinksForFeed(),
-            user,
+            links: await getFeed({ userId: currentUser._id, filterBy, limit, offset }),
+            user: currentUser,
         };
+    },
+    async user(parent, { userId }, { dataLoaders }) {
+        return dataLoaders.users.load(userId);
     },
 };
 

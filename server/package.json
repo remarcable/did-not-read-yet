@@ -10,6 +10,7 @@
   "dependencies": {
     "apollo-server-express": "^2.4.0",
     "body-parser": "^1.18.3",
+    "dataloader": "^1.4.0",
     "esm": "^3.2.4",
     "express": "^4.16.4",
     "graphql": "^14.1.1",
