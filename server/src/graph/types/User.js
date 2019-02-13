@@ -1,6 +1,6 @@
 export const userResolver = {
     User: {
-        submittedLinks: ({ _id }, { limit, offset }, { mongo }) => {
+        submittedLinks: ({ _id }, { limit = 0, offset = 0 }, { mongo }) => {
             return mongo
                 .collection('links')
                 .find({ postedBy: _id })

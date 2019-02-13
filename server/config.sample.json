@@ -1,3 +1,4 @@
 {
-    "mongoUrl": "mongodb://localhost/dnry"
+    "mongoUrl": "mongodb://localhost/dnry",
+    "jwtSecret": "changeme"
 }

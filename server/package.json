@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.4.0",
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "dataloader": "^1.4.0",
     "esm": "^3.2.4",
@@ -16,11 +17,11 @@
     "graphql": "^14.1.1",
     "graphql-iso-date": "^3.6.1",
     "graphql-url": "^2.0.5",
+    "jwt-simple": "^0.5.5",
     "lodash.merge": "^4.6.1",
+    "meteor-random": "0.0.3",
     "module-alias": "^2.1.0",
-    "mongodb": "^3.1.13",
-    "passport": "^0.4.0",
-    "passport-http-bearer": "^1.0.1"
+    "mongodb": "^3.1.13"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

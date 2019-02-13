@@ -10,6 +10,9 @@ export const mutationDefs = gql`
 
         followUser(userId: ID!): Feed!
         unfollowUser(userId: ID!): Feed!
+
+        # signup
+        # login
     }
 `;
 
