@@ -6,16 +6,20 @@ async function getFeed({ userId, filterBy, limit, offset }) {
 
 export const queryDefs = gql`
     type Query {
-        feed(filterBy: FilterInput, limit: Int, offset: Int): Feed!
+        feed(filterBy: FilterInput, limit: Int, offset: Int): Feed
         user(userId: ID!): User!
     }
 `;
 
 const resolvers = {
-    async feed(parent, { filterBy, limit, offset }, { currentUser }) {
+    async feed(parent, { filterBy, limit, offset }, { userId, dataLoaders }) {
+        if (!userId) {
+            return null;
+        }
+
         return {
-            links: await getFeed({ userId: currentUser._id, filterBy, limit, offset }),
-            user: currentUser,
+            links: await getFeed({ userId: userId._id, filterBy, limit, offset }),
+            user: await dataLoaders.users.load(userId),
         };
     },
     async user(parent, { userId }, { dataLoaders }) {

@@ -10,11 +10,11 @@ async function getFlagsForLink({ linkId, userId, mongo }) {
 
 export const linkResolver = {
     Link: {
-        isRead: async ({ _id: linkId }, args, { currentUser: { userId }, mongo }) =>
+        isRead: async ({ _id: linkId }, args, { userId, mongo }) =>
             (await getFlagsForLink({ linkId, userId, mongo })).isRead,
-        isArchived: async ({ _id: linkId }, args, { currentUser: { userId }, mongo }) =>
+        isArchived: async ({ _id: linkId }, args, { userId, mongo }) =>
             (await getFlagsForLink({ linkId, userId, mongo })).isArchived,
-        isFavorite: async ({ _id: linkId }, args, { currentUser: { userId }, mongo }) =>
+        isFavorite: async ({ _id: linkId }, args, { userId, mongo }) =>
             (await getFlagsForLink({ linkId, userId, mongo })).isFavorite,
         postedBy: ({ postedBy }, args, { dataLoaders }) => {
             return dataLoaders.users.load(postedBy);

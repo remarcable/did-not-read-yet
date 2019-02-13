@@ -13,8 +13,8 @@ export default new ApolloServer({
     typeDefs: concatenateTypeDefs([queryDefs, mutationDefs, typeDefs]),
     resolvers: merge(resolvers, typeResolvers),
     context: ({ req }) => {
-        const { currentUser, dataLoaders, mongo } = req;
-        return { currentUser, dataLoaders, mongo };
+        const { userId, dataLoaders, mongo } = req;
+        return { userId, dataLoaders, mongo };
     },
     mocks: {
         Date: () => new Date(),

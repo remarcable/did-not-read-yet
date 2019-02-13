@@ -17,18 +17,14 @@ export default function getExpressApp(mongo) {
 
     app.use(
         asyncMiddleware(async (req, res, next) => {
-            const dataLoaders = createDataLoaders({ mongo });
-            req.dataLoaders = dataLoaders;
-            req.mongo = mongo;
-
             const { user = {} } = req;
-            const userId = user._id;
-            if (userId) {
-                const currentUser = await dataLoaders.users.load(userId);
-                req.currentUser = currentUser;
-            } else {
-                req.currentUser = null;
-            }
+            const userId = user._id || null;
+            req.userId = userId;
+
+            req.dataLoaders = dataLoaders;
+            const dataLoaders = createDataLoaders({ mongo });
+
+            req.mongo = mongo;
 
             next();
         })

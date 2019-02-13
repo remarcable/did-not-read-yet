@@ -14,8 +14,8 @@ export const mutationDefs = gql`
 `;
 
 const resolvers = {
-    addLink(parent, args, { currentUser, dataLoaders }) {
-        return dataLoaders.users.clear(currentUser._id).load(currentUser._id);
+    addLink(parent, args, { userId, dataLoaders }) {
+        return dataLoaders.users.clear(userId).load(userId);
     },
 };
 
