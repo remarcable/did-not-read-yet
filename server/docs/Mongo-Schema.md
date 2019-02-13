@@ -15,6 +15,7 @@
     createdAt: Date,
     name: String,
     tokens: [String],
+    password: String,
 }
 ```
 

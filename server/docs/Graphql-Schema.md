@@ -57,6 +57,9 @@ input FilterInput {
 
     followUser(userId: ID!): Feed! # update user.following and links in feed
     unfollowUser(userId: ID!): Feed! # update user.following and links in feed
+
+    signup(user: UserInput!): AuthPayload!
+    login(email: Email!, password: String!): AuthPayload!
 }
 ```
 
@@ -64,5 +67,14 @@ input FilterInput {
 input LinkInput {
     title: String!
     url: URL!
+}
+
+input UserInput {
+    name: String!
+    password: String!
+}
+
+type AuthPayload {
+    token: String!
 }
 ```
