@@ -41,6 +41,15 @@ const types = gql`
         isFavorite: Boolean!
     }
 
+    type AuthPayload {
+        token: String!
+    }
+
+    input UserInput {
+        name: String!
+        password: String!
+    }
+
     input LinkInput {
         title: String!
         url: AbsoluteUrl!
