@@ -47,6 +47,7 @@ export async function signup({ user, mongo }) {
     const userId = Random.id();
     const authToken = generateAuthToken({ userId });
 
+    // TODO: maybe try/catch with custom error
     await mongo.collection('users').insertOne({
         name: username,
         password: passwordHash,
@@ -57,6 +58,8 @@ export async function signup({ user, mongo }) {
     return { token: authToken };
 }
 
+class GenericLoginError extends Error {}
+
 export async function login({ name, password: clearTextPassword, mongo }) {
     const username = sanitizeUsername(name);
     const user = await mongo
@@ -64,13 +67,15 @@ export async function login({ name, password: clearTextPassword, mongo }) {
         .findOne({ name: username }, { projection: { tokens: 1, password: 1 } });
 
     if (!user) {
-        return null; // TODO: throw error?
+        // TODO: improve what kind of error is thrown when
+        throw new GenericLoginError();
     }
 
     const passwordIsCorrect = await bcrypt.compare(clearTextPassword, user.password);
 
     if (!passwordIsCorrect) {
-        return null; // TODO: throw error?
+        // TODO: improve what kind of error is thrown when
+        throw new GenericLoginError();
     }
 
     const userId = user._id;

@@ -125,7 +125,7 @@ describe('Authentication', () => {
             expect(typeof obj.token).toBe('string');
         });
 
-        it('ensures that "name" is unique', async () => {
+        it('throws when user with same name already exists', async () => {
             const userInput = { name: Random.id(), password: 'my-password' };
             await signup({ user: userInput, mongo });
             await expect(signup({ user: userInput, mongo })).rejects.toThrow();
@@ -156,9 +156,22 @@ describe('Authentication', () => {
             expect(typeof obj.token).toBe('string');
         });
 
-        it.skip('adds the returned token to the user document', async () => {});
-        it.skip('throws an error when the user does not exist', async () => {});
-        it.skip('throws an error when the password is not correct', async () => {});
+        it('adds the returned token to the user document', async () => {
+            const { token } = await login({ name: user.name, password: user.password, mongo });
+            const updatedUserDocument = await mongo.collection('users').findOne({ _id: user._id });
+            expect(updatedUserDocument.tokens).toContain(token);
+        });
+
+        it('throws an error when the user does not exist', async () => {
+            await expect(
+                login({ name: 'does-not-exist', password: 'secret', mongo })
+            ).rejects.toThrow();
+        });
+        it('throws an error when the password is not correct', async () => {
+            await expect(
+                login({ name: user.name, password: 'not-correct', mongo })
+            ).rejects.toThrow();
+        });
     });
 
     describe('sanitizeUsername(name)', () => {
