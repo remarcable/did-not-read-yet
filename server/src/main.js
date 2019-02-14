@@ -1,8 +1,11 @@
-import getMongoConnection from './getMongoConnection';
+import getMongoConnection from './db/getMongoConnection';
+import createMongoIndexes from './db/createMongoIndexes';
 import getExpressApp from './app';
 import apolloServer from './graph';
 
-getMongoConnection().then(mongo => {
+getMongoConnection().then(async mongo => {
+    await createMongoIndexes(mongo);
+
     const app = getExpressApp(mongo);
     apolloServer.applyMiddleware({ app });
 

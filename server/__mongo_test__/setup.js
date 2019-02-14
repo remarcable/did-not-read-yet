@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const MongodbMemoryServer = require('mongodb-memory-server').default;
 
+const getMongoConnection = require('../src/db/getMongoConnection').default;
+const createMongoIndexes = require('../src/db/createMongoIndexes').default;
+
 const globalMongoConfigPath = path.join(__dirname, 'globalMongoConfig.json');
 
 const mongoDBName = 'dnry';
@@ -27,4 +30,7 @@ module.exports = async () => {
     // Set reference to mongod in order to close the server during teardown.
     global.__MONGOD__ = mongod;
     process.env.MONGO_URL = mongoConfig.mongoUri;
+
+    const mongo = await getMongoConnection();
+    await createMongoIndexes(mongo);
 };

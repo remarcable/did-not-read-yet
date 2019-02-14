@@ -4,6 +4,7 @@ import Random from 'meteor-random';
 import config from '@root/config';
 
 const { jwtSecret } = config;
+export const MAX_TOKEN_COUNT = 5;
 
 export async function getUserIdFromAuthToken({ token, mongo }) {
     const user = await mongo
@@ -20,7 +21,6 @@ export async function getUserIdFromAuthToken({ token, mongo }) {
     return user._id;
 }
 
-const MAX_TOKEN_COUNT = 5;
 export async function saveAuthTokenToUser({ token, userId, mongo }) {
     const user = await mongo
         .collection('users')
@@ -37,7 +37,7 @@ export async function saveAuthTokenToUser({ token, userId, mongo }) {
 
     const newTokens = [token, ...oldTokens.slice(0, MAX_TOKEN_COUNT - 1)];
 
-    return mongo.collection('users').updateOne({ _id: userId }, { tokens: newTokens });
+    return mongo.collection('users').updateOne({ _id: userId }, { $set: { tokens: newTokens } });
 }
 
 export function generateAuthToken({ userId }) {
@@ -87,6 +87,6 @@ export async function login({ name, password: clearTextPassword, mongo }) {
     return { token };
 }
 
-function sanitizeUsername(name) {
-    return name.trim().toLowercase(); // TODO: add better validation
+export function sanitizeUsername(name) {
+    return name.trim().toLowerCase(); // TODO: add better validation
 }

@@ -5,7 +5,7 @@
 -   users
 -   followers
 -   links
--   users-link // better name!
+-   users-links // better name!
 
 ## `users`
 
@@ -41,7 +41,7 @@
 }
 ```
 
-## `users-link`
+## `users-links`
 
 ```js
 {

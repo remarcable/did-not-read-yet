@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import config from './config';
+import config from '../config';
 
 let mongo;
 
@@ -15,6 +15,7 @@ export default async function getMongoConnection() {
         );
 
         mongo = connection.db('dnry');
+        mongo.close = connection.close.bind(connection);
     }
 
     return mongo;
