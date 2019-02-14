@@ -9,10 +9,7 @@ export const MAX_TOKEN_COUNT = 5;
 export async function getUserIdFromAuthToken({ token, mongo }) {
     const user = await mongo
         .collection('users')
-        .find({ tokens: token })
-        .project({ _id: 1 })
-        .limit(1)
-        .next();
+        .findOne({ tokens: token }, { projection: { _id: 1 } });
 
     if (!user) {
         return null;
@@ -24,10 +21,7 @@ export async function getUserIdFromAuthToken({ token, mongo }) {
 export async function saveAuthTokenToUser({ token, userId, mongo }) {
     const user = await mongo
         .collection('users')
-        .find({ _id: userId })
-        .project({ tokens: 1 })
-        .limit(1)
-        .next();
+        .findOne({ _id: userId }, { projection: { tokens: 1 } });
 
     if (!user) {
         throw new Error(`Saving token to user ${userId} failed: User does not exist`);
@@ -67,13 +61,13 @@ export async function login({ name, password: clearTextPassword, mongo }) {
     const username = sanitizeUsername(name);
     const user = await mongo
         .collection('users')
-        .findOne({ name: username }, { fields: { tokens: 1, password: 1 } });
+        .findOne({ name: username }, { projection: { tokens: 1, password: 1 } });
 
     if (!user) {
         return null; // TODO: throw error?
     }
 
-    const passwordIsCorrect = await bcrypt.compare(user.password, clearTextPassword);
+    const passwordIsCorrect = await bcrypt.compare(clearTextPassword, user.password);
 
     if (!passwordIsCorrect) {
         return null; // TODO: throw error?

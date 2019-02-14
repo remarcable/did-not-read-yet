@@ -1,10 +1,13 @@
 import Random from 'meteor-random';
 import getMongoConnection from '@root/db/getMongoConnection';
+import createMongoIndexes from '@root/db/createMongoIndexes';
+
 import {
     getUserIdFromAuthToken,
     MAX_TOKEN_COUNT,
     saveAuthTokenToUser,
     signup,
+    login,
     sanitizeUsername,
 } from './index';
 
@@ -12,6 +15,7 @@ describe('Authentication', () => {
     let mongo = null;
     beforeAll(async () => {
         mongo = await getMongoConnection();
+        await createMongoIndexes(mongo); // needed for signup tests
     });
 
     afterAll(async () => {
@@ -115,10 +119,10 @@ describe('Authentication', () => {
 
         it('returns an object with token', async () => {
             const userInput = { name: Random.id(), password: 'my-password' };
-            const { token } = await signup({ user: userInput, mongo });
+            const obj = await signup({ user: userInput, mongo });
 
-            expect(token).toBeDefined();
-            expect(typeof token).toBe('string');
+            expect(obj).toHaveProperty('token');
+            expect(typeof obj.token).toBe('string');
         });
 
         it('ensures that "name" is unique', async () => {
@@ -126,6 +130,35 @@ describe('Authentication', () => {
             await signup({ user: userInput, mongo });
             await expect(signup({ user: userInput, mongo })).rejects.toThrow();
         });
+    });
+
+    describe('login({ name, password, mongo })', () => {
+        const user = {
+            name: 'my-username',
+            password: 'secret',
+        };
+
+        beforeEach(async () => {
+            await signup({ user, mongo });
+            const mongoUser = await mongo.collection('users').findOne({ name: user.name });
+            user._id = mongoUser._id;
+        });
+
+        afterEach(async () => {
+            await mongo.collection('users').removeOne({ _id: user._id });
+        });
+
+        it('returns an object with an auth token on successful login', async () => {
+            const obj = await login({ name: user.name, password: user.password, mongo });
+
+            expect(obj).not.toBeNull();
+            expect(obj).toHaveProperty('token');
+            expect(typeof obj.token).toBe('string');
+        });
+
+        it.skip('adds the returned token to the user document', async () => {});
+        it.skip('throws an error when the user does not exist', async () => {});
+        it.skip('throws an error when the password is not correct', async () => {});
     });
 
     describe('sanitizeUsername(name)', () => {
