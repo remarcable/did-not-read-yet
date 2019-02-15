@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import { gql, ApolloError } from 'apollo-server-express';
 import { signup, login } from '@root/auth';
 
 export const mutationDefs = gql`
@@ -23,13 +23,13 @@ const resolvers = {
     },
     signup(parent, { user }, { userId, mongo }) {
         if (userId) {
-            throw new Error('User is already logged in');
+            throw new ApolloError('User is already logged in', 'USER_ALREADY_LOGGED_IN_ERROR');
         }
         return signup({ user, mongo });
     },
     login(parent, { name, password }, { userId, mongo }) {
         if (userId) {
-            throw new Error('User is already logged in');
+            throw new ApolloError('User is already logged in', 'USER_ALREADY_LOGGED_IN_ERROR');
         }
 
         return login({ name, password, mongo });

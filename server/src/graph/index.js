@@ -21,4 +21,5 @@ export default new ApolloServer({
         AbsoluteUrl: () => 'https://example.com',
     },
     mockEntireSchema: false,
+    tracing: true,
 });

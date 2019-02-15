@@ -49,6 +49,7 @@ export async function signup({ user, mongo }) {
 
     // TODO: maybe try/catch with custom error
     await mongo.collection('users').insertOne({
+        _id: userId,
         name: username,
         password: passwordHash,
         createdAt: new Date(),
