@@ -10,3 +10,7 @@
   justify-content: space-around;
   list-style-type: none;
 }
+.active {
+  color: red;
+  font-weight: bold;
+}
