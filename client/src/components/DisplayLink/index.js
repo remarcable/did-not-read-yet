@@ -20,7 +20,7 @@ const DisplayLink = ({
       >
         {title}
       </a>
-      <p> from {user}</p>
+      <p className="text"> from {user}</p>
       {dismissed ? (
         <button onClick={() => undismissLink(id)}>Undismiss</button>
       ) : (

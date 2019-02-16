@@ -7,12 +7,14 @@ import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 import Feed from './pages/Feed';
 import Submit from './pages/Submit';
+import Navigation from './components/Navigation';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
   <Router>
     <div>
-      <Route exact path="/" component={App} />
+      <Route path="/" component={Navigation} />
+      <Route path="/" exact component={App} />
       <Route path="/login" component={LoginPage} />
       <Route path="/submit" component={Submit} />
       <Route path="/feed" component={Feed} />
@@ -22,7 +24,6 @@ const routing = (
 );
 
 ReactDOM.render(routing, document.getElementById('root'));
-//ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

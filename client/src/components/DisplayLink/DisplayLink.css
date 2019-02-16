@@ -3,9 +3,6 @@
   align-items: center;
   display: flex;
 }
-body {
-  margin-left: 1%;
-}
-p {
+.text {
   margin: 1%;
 }
