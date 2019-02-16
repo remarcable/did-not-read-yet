@@ -1,0 +1,11 @@
+.container {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+}
+body {
+  margin-left: 1%;
+}
+p {
+  margin: 1%;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './DisplayLink.css';
 
 const DisplayLink = ({
   link,
@@ -10,7 +11,7 @@ const DisplayLink = ({
   const { id, title, url, user, dismissed } = link;
 
   return (
-    <div>
+    <div className="container">
       <a
         href={url}
         target="_blank"
@@ -19,7 +20,7 @@ const DisplayLink = ({
       >
         {title}
       </a>
-      <p>from {user}</p>
+      <p> from {user}</p>
       {dismissed ? (
         <button onClick={() => undismissLink(id)}>Undismiss</button>
       ) : (
