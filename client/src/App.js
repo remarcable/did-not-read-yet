@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import { modifyElement } from './lib/modifyElement';
+import { Link, BrowserRouter as Router } from 'react-router-dom';
 
 import DisplayLink from './components/DisplayLink';
 import AddLinkForm from './components/AddLinkFormComponent';
+import Navigation from './components/Navigation';
 
 const defaultLinks = [
   {
@@ -93,6 +95,7 @@ class App extends PureComponent {
     return (
       <div>
         <h1>Did not read yet</h1>
+        <Navigation />
         <AddLinkForm addLink={this.addLink} />
         <h2>New Links</h2>
         {links.filter(link => !link.read && !link.dismissed).map(displayLink)}
