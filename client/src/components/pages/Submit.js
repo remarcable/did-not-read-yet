@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import AddLinkForm from '../components/AddLinkForm';
-import { defaultLinks } from '../App.js';
+import AddLinkForm from '../../components/AddLinkForm';
+import { defaultLinks } from '../../App.js';
 
 class Submit extends PureComponent {
   state = {

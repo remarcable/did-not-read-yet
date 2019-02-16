@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import LoginPage from './pages/LoginPage';
-import RegistrationPage from './pages/RegistrationPage';
-import Feed from './pages/Feed';
-import Submit from './pages/Submit';
+import LoginPage from './components/pages/LoginPage';
+import RegistrationPage from './components/pages/RegistrationPage';
+import Feed from './components/pages/Feed';
+import Submit from './components/pages/Submit';
 import Navigation from './components/Navigation';
 import * as serviceWorker from './serviceWorker';
 
