@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 //import App from './App';
-import LoginPage from './LoginPage';
+//import LoginPage from './pages/LoginPage';
+import RegistrationPage from './pages/RegistrationPage';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<LoginPage />, document.getElementById('root'));
+ReactDOM.render(<RegistrationPage />, document.getElementById('root'));
 //ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
