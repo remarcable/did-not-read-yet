@@ -7,7 +7,7 @@ const DisplayLink = ({
   undismissLink,
   deleteLink,
 }) => {
-  const { id, title, url, dismissed } = link;
+  const { id, title, url, user, dismissed } = link;
 
   return (
     <div>
@@ -19,6 +19,7 @@ const DisplayLink = ({
       >
         {title}
       </a>
+      <p>from {user}</p>
       {dismissed ? (
         <button onClick={() => undismissLink(id)}>Undismiss</button>
       ) : (

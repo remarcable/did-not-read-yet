@@ -4,50 +4,57 @@ import { modifyElement } from './lib/modifyElement';
 import DisplayLink from './components/DisplayLink';
 import AddLinkForm from './components/AddLinkFormComponent';
 
+const defaultLinks = [
+  {
+    id: 1,
+    title: 'Google',
+    url: 'https://google.com',
+    user: 'lighningboss',
+    dismissed: false,
+    read: false,
+  },
+  {
+    id: 2,
+    title: 'YouTube',
+    url: 'https://youtube.com',
+    user: 'lighningboss',
+    dismissed: false,
+    read: false,
+  },
+  {
+    id: 3,
+    title: 'Hacker News',
+    url: 'https://news.ycombinator.com',
+    user: 'nrin',
+    dismissed: false,
+    read: false,
+  },
+];
+
 class App extends PureComponent {
   state = {
-    idCounter: 4,
-    links: [
-      {
-        id: 1,
-        title: 'Google',
-        url: 'https://google.com',
-        dismissed: false,
-        read: false,
-      },
-      {
-        id: 2,
-        title: 'YouTube',
-        url: 'https://youtube.com',
-        dismissed: false,
-        read: false,
-      },
-      {
-        id: 3,
-        title: 'Hacker News',
-        url: 'https://news.ycombinator.com',
-        dismissed: false,
-        read: false,
-      },
-    ],
+    idCounter: defaultLinks.length + 1,
+    links: defaultLinks,
   };
-  addLink = (title, url) => {
-    let linksCopy = [...this.state.links];
-    linksCopy.push({
-      id: this.state.idCounter,
-      title: title,
-      url: url,
-      dismissed: false,
-      read: false,
-    });
-    this.setState(state => {
-      return { links: linksCopy, idCounter: state.idCounter + 1 };
-    });
+  addLink = (title, url, user) => {
+    this.setState(state => ({
+      links: [
+        ...state.links,
+        {
+          id: this.state.idCounter,
+          title,
+          url,
+          user,
+          dismissed: false,
+          read: false,
+        },
+      ],
+      idCounter: state.idCounter + 1,
+    }));
   };
   deleteLink = id => {
     let linksCopy = [...this.state.links];
     linksCopy = linksCopy.filter(element => id !== element.id);
-    console.log(linksCopy);
     this.setState({ links: linksCopy });
   };
   updateSingleLink = (id, updatedFields) => {

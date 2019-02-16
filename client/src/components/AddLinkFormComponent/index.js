@@ -1,5 +1,8 @@
 import React from 'react';
 
+//soll später über Login/Registrierung vom Server provided werden.
+const currentUser = 'nrin';
+
 const AddLinkForm = props => {
   return (
     <div>
@@ -15,7 +18,7 @@ const AddLinkForm = props => {
 
 function handleSubmit(event, addLink) {
   event.preventDefault();
-  addLink(event.target.title.value, event.target.url.value);
+  addLink(event.target.title.value, event.target.url.value, currentUser);
 }
 
 export default AddLinkForm;
