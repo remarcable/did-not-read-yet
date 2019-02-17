@@ -1,34 +1,32 @@
 import React from 'react';
 import './DisplayLink.css';
+import DismissButton from '../DismissButton';
 
-const DisplayLink = ({
-  link,
-  markAsRead,
-  dismissLink,
-  undismissLink,
-  deleteLink,
-}) => {
-  const { id, title, url, user, dismissed } = link;
+const DisplayLink = ({ link, markAsRead, dismissLink, undismissLink, deleteLink, onFeed }) => {
+    const { id, title, url, user, dismissed } = link;
 
-  return (
-    <div className="container">
-      <a
-        href={url}
-        target="_blank"
-        rel="noreferrer noopener"
-        onClick={() => markAsRead(id)}
-      >
-        {title}
-      </a>
-      <p className="text"> from {user}</p>
-      {dismissed ? (
-        <button onClick={() => undismissLink(id)}>Undismiss</button>
-      ) : (
-        <button onClick={() => dismissLink(id)}>Dismiss</button>
-      )}
-      <button onClick={() => deleteLink(id)}>Delete Link</button>
-    </div>
-  );
+    return (
+        <div className="container">
+            <a
+                href={url}
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={onFeed ? () => markAsRead(id) : null}
+            >
+                {title}
+            </a>
+            <p className="text"> from {user}</p>
+            {onFeed ? (
+                <DismissButton
+                    dismissed={dismissed}
+                    dismissLink={dismissLink}
+                    undismissLink={undismissLink}
+                    id={id}
+                />
+            ) : null}
+            <button onClick={() => deleteLink(id)}>Delete Link</button>
+        </div>
+    );
 };
 
 export default DisplayLink;

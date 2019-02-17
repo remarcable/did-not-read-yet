@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react';
 
 class RegistrationPage extends PureComponent {
   state = {};
-  handleSubmit = value => {
-    console.log(value);
-  };
+  handleSubmit = value => {};
   render() {
     return (
       <div>
