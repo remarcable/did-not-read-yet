@@ -2,7 +2,7 @@ import { gql, concatenateTypeDefs } from 'apollo-server-express';
 import merge from 'lodash.merge';
 
 import { dateResolvers } from './Date';
-import { absoluteUrlResolver } from './AbsoluteUrl';
+import { absoluteUrlResolver } from './AbsoluteURL';
 import { userResolver } from './User';
 import { linkResolver } from './Link';
 
