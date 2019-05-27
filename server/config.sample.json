@@ -1,0 +1,4 @@
+{
+    "mongoUrl": "mongodb://localhost/dnry",
+    "jwtSecret": "changeme"
+}

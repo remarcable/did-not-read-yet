@@ -18,8 +18,12 @@ build
 .env.test.local
 .env.production.local
 
+config.dev.json
+config.prod.json
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 server/data
+.mongo-log.txt
