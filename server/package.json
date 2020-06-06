@@ -8,7 +8,7 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "apollo-server-express": "^2.4.0",
+    "apollo-server-express": "^2.14.2",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "dataloader": "^1.4.0",
